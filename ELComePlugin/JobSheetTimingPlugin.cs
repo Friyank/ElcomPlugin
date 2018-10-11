@@ -156,14 +156,14 @@ namespace ELComePlugin.FieldService.ServiceOrder
                                 CreateServiceHour[ProjectCategoryEntitySchemaName] = new EntityReference(ProjectCategoryEntitySchemaName, Category.Entities[0].Id);
                                 CreateServiceHour["msdyn_workorder"] = new EntityReference("msdyn_workorder", entity.Id);
                                 CreateServiceHour[LegalEntityEntitySchemaName] = new EntityReference("businessunit", entityPostImage.Contains(LegalEntityEntitySchemaName) ? ((EntityReference)entityPostImage[LegalEntityEntitySchemaName]).Id : new Guid(DefaultLegalEntity));
-                                CreateServiceHour["msdyn_duration"] = EachHours;
+                                CreateServiceHour["msdyn_duration"] = EachHours * 60;
                                 orgService.Create(CreateServiceHour);
                             }
                             //If Service Hours is in system check value of duration, Update only if Not same as new value
-                            else if (ServicesHours.Entities[0].Contains("msdyn_duration") && Convert.ToInt32(ServicesHours.Entities[0]["msdyn_duration"]) != EachHours)
+                            else if (ServicesHours.Entities[0].Contains("msdyn_duration") && Convert.ToInt32(ServicesHours.Entities[0]["msdyn_duration"]) != EachHours * 60)
                             {
                                 Entity UpdateServiceHour = new Entity(ServiceHourEntitySchemaName, ServicesHours.Entities[0].Id);
-                                UpdateServiceHour["msdyn_duration"] = EachHours;
+                                UpdateServiceHour["msdyn_duration"] = EachHours * 60;
                                 orgService.Update(UpdateServiceHour);
                             }
                         }
@@ -173,7 +173,7 @@ namespace ELComePlugin.FieldService.ServiceOrder
                             CreateServiceHour[ProjectCategoryEntitySchemaName] = new EntityReference(ProjectCategoryEntitySchemaName, Category.Entities[0].Id);
                             CreateServiceHour["msdyn_workorder"] = new EntityReference("msdyn_workorder", entity.Id);
                             CreateServiceHour[LegalEntityEntitySchemaName] = new EntityReference("businessunit", entityPostImage.Contains(LegalEntityEntitySchemaName) ? ((EntityReference)entityPostImage[LegalEntityEntitySchemaName]).Id : new Guid(DefaultLegalEntity));
-                            CreateServiceHour["msdyn_duration"] = EachHours;
+                            CreateServiceHour["msdyn_duration"] = EachHours * 60;
                             orgService.Create(CreateServiceHour);
                         }
                     }
